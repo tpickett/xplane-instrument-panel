@@ -1,0 +1,6 @@
+default:
+  - 'browserify'
+  - 'less'
+  - 'express'
+  - 'watch'
+  - 'open'

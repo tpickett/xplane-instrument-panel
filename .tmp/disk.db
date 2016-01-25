@@ -1,0 +1,54 @@
+{
+  "data": {
+    "user": [
+      {
+        "username": "admin",
+        "password": "$2a$10$NXkbn.yaFmWXHDHgZlniVO.AA/mPYJWWeFVJ.wjEGHiNGpXa.FGuy",
+        "email": "test@test.com",
+        "roles": [
+          "user"
+        ],
+        "createdAt": "2016-01-25T05:57:20.722Z",
+        "updatedAt": "2016-01-25T05:57:20.722Z",
+        "id": 55
+      }
+    ]
+  },
+  "schema": {
+    "user": {
+      "username": {
+        "type": "string"
+      },
+      "password": {
+        "type": "string"
+      },
+      "email": {
+        "type": "string",
+        "unique": true
+      },
+      "roles": {
+        "type": "array",
+        "defaultsTo": [
+          "user"
+        ]
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    }
+  },
+  "counters": {
+    "user": {
+      "id": 55
+    }
+  }
+}

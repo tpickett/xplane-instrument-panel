@@ -1,0 +1,15 @@
+"docker-panel":
+  build: ./
+  hostname: "docker-panel"
+  links:
+    - postgres_db:postgres
+  ports:
+    - 8080:80
+  # volumes:
+  #   - ./:/var/www/html
+postgres_db:
+  image: postgres
+  environment:
+    POSTGRES_PASSWORD: test
+    POSTGRES_USER: test
+    POSTGRES_DB: test
