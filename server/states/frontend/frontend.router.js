@@ -22,7 +22,7 @@ function TorchExpressRouting (app) {
  */
 TorchExpressRouting.prototype.sendToSPA = function() {
   // console.log(Object.keys(this.app.locals.controllers.frontend.app))
-  router.route('/**/*.{css}')
+  router.route('/**/*.{css,png,jpg,jpeg}')
     .get((req, res, next)=>{
       var stripped = req.url.split('.')[0],
                 requestedView = path.join('./', stripped);
