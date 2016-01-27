@@ -8,10 +8,13 @@ import {Draggable} from 'jquery-ui';
 import {gridster} from 'gridster/src/jquery.gridster.js';
 import {AirspeedInstrument} from '../airspeed-instrument/airspeed';
 import {TurnslipInstrument} from '../turnslip-instrument/turnslip';
+import {VerticalspeedInstrument} from '../verticalspeed-instrument/verticalspeed';
+import {AttitudeInstrument} from '../attitude-instrument/attitude';
+import {AltitudeInstrument} from '../altitude-instrument/altitude';
 
 @Component({
   template: `${fs.readFileSync(__dirname + '/widget-area.html')}`,
-  directives: [AirspeedInstrument, TurnslipInstrument],
+  directives: [AirspeedInstrument, TurnslipInstrument, VerticalspeedInstrument, AttitudeInstrument, AltitudeInstrument],
   providers:  []
 })
 export class WidgetArea implements OnInit, AfterViewInit{

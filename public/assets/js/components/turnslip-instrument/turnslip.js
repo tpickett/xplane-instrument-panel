@@ -24,18 +24,19 @@ export class TurnslipInstrument implements OnInit, AfterViewInit{
     this.defs = this.svg.append("defs")
     this.pattern = this.defs.append("pattern").attr({ id:"slipGearPattern", width:width, height:height, patternUnits:"userSpaceOnUse"});
     this.image = this.pattern.append("image").attr({'xlink:href':'http://localhost:8080/assets/img/turnslip/turnslip_gear.png', width:width, height:height, x:"0", y:"0"})
-
     this.pattern2 = this.defs.append("pattern").attr({ id:"slipDiskPattern", width:width, height:height, patternUnits:"userSpaceOnUse"});
     this.image2 = this.pattern2.append("image").attr({'xlink:href':'http://localhost:8080/assets/img/turnslip/turnslip_disc.png', width:width, height:height, x:"0", y:"0"})
-
     this.pattern3 = this.defs.append("pattern").attr({ id:"slipPlanePattern", width:width, height:height, patternUnits:"userSpaceOnUse"});
     this.image3 = this.pattern3.append("image").attr({'xlink:href':'http://localhost:8080/assets/img/turnslip/turnslip_planeshape.png', width:width, height:height, x:"0", y:"0"})
+    this.pattern4 = this.defs.append("pattern").attr({ id:"slipPlaneBallPattern", width:width, height:height, patternUnits:"userSpaceOnUse"});
+    this.image4 = this.pattern4.append("image").attr({'xlink:href':'http://localhost:8080/assets/img/turnslip/turnslip_ball.png', width:width, height:height, x:"0", y:"0"})
 
 
     //Shape design
     this.gear = this.svg.append("rect").attr({x:"0", y:"0", width:width, height:height,fill:"url(/panel#slipDiskPattern)"})
     this.base = this.svg.append("rect").attr({x:"0", y:"0", width:width, height:height,fill:"url(/panel#slipGearPattern)"})
     this.plane = this.svg.append("rect").attr({x:"0", y:"0", width:width, height:height,fill:"url(/panel#slipPlanePattern)"})
+    this.ball = this.svg.append("rect").attr({x:"0", y:"0", width:width, height:height,fill:"url(/panel#slipPlaneBallPattern)"})
   }
 	ngOnInit() {
 		return;
