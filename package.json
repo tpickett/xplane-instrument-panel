@@ -1,5 +1,5 @@
 {
-  "name": "Extplane Instrument Panel",
+  "name": "Extplane-Instrument-Panel",
   "version": "0.0.1",
   "description": "Dashboard for Xplane instrument panel",
   "main": "server/server.js",
