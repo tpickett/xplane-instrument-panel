@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import {Component, OnInit, AfterViewInit} from 'angular2/core';
+import {XplaneData} from '../../injectables/xplane-data';
 import $ from 'jquery';
 import * as d3 from 'd3/d3';
 global.d3 = d3;
@@ -12,11 +13,12 @@ let fs = require('fs');
   selector: 'attitude-instrument',
   template: `${fs.readFileSync(__dirname + '/attitude.html')}`,
   directives: [],
-  providers:  []
+  providers:  [XplaneData]
 })
 export class AttitudeInstrument implements OnInit, AfterViewInit{
-  constructor(){
+  constructor(_xplane: XplaneData){
     this.svg = null;
+    this.attitude = _xplane.server_data;
   }
   setupInstrument(){
     this.svg = d3.select(".attitude").append("svg").attr({"id":"attitudesvg", "width":width, "height": height});
@@ -34,13 +36,17 @@ export class AttitudeInstrument implements OnInit, AfterViewInit{
 
 
     //Shape design
-    // this.backplate = this.svg.append("rect").attr({x:"0", y:"0", width:width, height:height,fill:"url(/panel#backplatePattern)"})
+    this.backplate = this.svg.append("rect").attr({x:"0", y:"0", width:width, height:height,fill:"url(/panel#backplatePattern)"})
     this.disc = this.svg.append("rect").attr({x:"0", y:"0", width:width, height:height,fill:"url(/panel#discPattern)"})
     this.gear = this.svg.append("rect").attr({x:"0", y:"0", width:width, height:height,fill:"url(/panel#gearPattern)"})
     this.planeshape = this.svg.append("rect").attr({x:"0", y:"0", width:width, height:height,fill:"url(/panel#planeshapePattern)"})
 
   }
   ngOnInit() {
+    setInterval(()=>{
+      this.image.transition().attr("transform", "rotate("+this.attitude.attitude.status+", 150, 150)").attr("x", this.attitude.attitude.status + (4*this.attitude.attitude.status)).attr("y", this.attitude.attitude.status - (4*this.attitude.attitude.status))
+      this.gear.transition().attr("transform", "rotate("+(this.attitude.attitude.status - (2*this.attitude.attitude.status))+", 150, 150)")
+    }, 100)
     return;
   }
   ngAfterViewInit(){

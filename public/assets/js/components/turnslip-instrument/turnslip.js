@@ -7,6 +7,7 @@ global.d3 = d3;
 const width = 300;
 const height = 300;
 let fs = require('fs');
+let _ = require('lodash');
 
 
 @Component({
@@ -19,7 +20,6 @@ export class TurnslipInstrument implements OnInit, AfterViewInit{
 	constructor(_xplane: XplaneData){
 		this.svg = null;
     this.turnslip = _xplane.server_data.turnslip;
-    // console.log(_xplane.server_data)
 	}
   tiltAirPlane(start, end){
     return new Promise((resolve, reject)=>{
@@ -69,38 +69,12 @@ export class TurnslipInstrument implements OnInit, AfterViewInit{
     this.plane = this.svg.append("rect").attr({x:"0", y:"0", width:width, height:height,fill:"url(/panel#slipPlanePattern)"})
   }
 	ngOnInit() {
-		setTimeout(()=>{
-      return this.moveBall(100)
-      // .then(()=>{
-      //     return this.moveBall(0);
-      //   })
-      //   .then(()=>{
-      //     return this.moveBall(-100);
-      //   })
-      //   .then(()=>{
-      //     return this.moveBall(0);
-      //   })
-        .then(()=>{
-          // this.image3.attr("transform", "rotate(360, 150, 130)")
-          let prop = d3.transform(this.image3.attr("transform"));
-          this.image3.attr("transform", "rotate("+prop.rotate+", 150, 130), rotate("+(prop.rotate + 50)+", 145, 155)")
-          console.log( d3.transform(this.image3.attr("transform")))
-          setTimeout(()=>{this.image3.attr("transform", "rotate("+d3.transform(this.image3.attr("transform")).rotate+", 150, 150), rotate("+(d3.transform(this.image3.attr("transform")).rotate - 80)+", 150, 150)")}, 500)
-          // return this.tiltAirPlane(360, 340);
-        })
-        // .then(()=>{
-        //   return this.tiltAirPlane(340, 360);
-        // })
-        // .then(()=>{
-        //   return this.tiltAirPlane(360, 380);
-        // })
-        // .then(()=>{
-        //   return this.tiltAirPlane(380, 360);
-        // })
-        .then(()=>{
-          console.log('complete anitmation')
-        })
-    }, 2500)
+    setInterval(()=>{
+      this.image3.transition()
+        .attr("transform", "rotate("+this.turnslip.rotation+", 150, 130)");
+      this.image4.transition()
+        .attr("x", this.turnslip.pitch);
+    }, 100)
 	}
 	ngAfterViewInit(){
 		return this.setupInstrument();

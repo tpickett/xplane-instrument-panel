@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import {Component, OnInit, AfterViewInit} from 'angular2/core';
+import {XplaneData} from '../../injectables/xplane-data';
 import $ from 'jquery';
 import * as d3 from 'd3/d3';
 global.d3 = d3;
@@ -12,11 +13,12 @@ let fs = require('fs');
   selector: 'verticalspeed-instrument',
   template: `${fs.readFileSync(__dirname + '/verticalspeed.html')}`,
   directives: [],
-  providers:  []
+  providers:  [XplaneData]
 })
 export class VerticalspeedInstrument implements OnInit, AfterViewInit{
-	constructor(){
+	constructor(_xplane: XplaneData){
 		this.svg = null;
+    this.vspeed = _xplane.server_data;
 	}
   setupInstrument(){
     this.svg = d3.select(".verticalspeed").append("svg").attr({"id":"verticalspeedsvg", "width":width, "height": height});
@@ -32,19 +34,12 @@ export class VerticalspeedInstrument implements OnInit, AfterViewInit{
     this.verticalspeedDial = this.svg.append("rect").attr({x:"0", y:"0", width:width, height:height,fill:"url(/panel#verticalspeedDialPattern)"})
 
   }
-  tweenNeedle(d, i ,a){
-    // d3.interpolateString("rotate(270, 120, 130)", "rotate(360, 120, 130)");
-    return d3.interpolateString("rotate(360, 150, 130)", "rotate(270, 145, 155)");
-  }
 	ngOnInit() {
-		return;
+		setInterval(()=>{
+      this.verticalspeedDial.transition().attr("transform", "rotate("+this.vspeed.vertical_speed.status+", 125, 135)")
+    }, 100)
 	}
 	ngAfterViewInit(){
-    setTimeout(()=>{
-      this.verticalspeedDial.transition()
-        .duration(2000)
-        .attrTween("transform", this.tweenNeedle)
-    }, 2500)
 		return this.setupInstrument();
 	}
 }
